@@ -5,31 +5,6 @@ export default async function BooksDisplay() {
   const cookieStore = cookies();
   const supabase = createServerComponentClient({ cookies: () => cookieStore });
 
-  //   console.log(supabase);
-
-  //   const {
-  //     data: { session },
-  //   } = await supabase.auth.getSession();
-
-  //   console.log(session);
-
-  //   const { data: products, error } = await supabase.from("Products").select(`
-  //         id,
-  //         AudioBooks (
-  //             duration
-  //         )
-  //     `);
-
-  // const profiles = await supabase.from("profiles").select("*");
-
-  // console.log("error: ...", profiles.error);
-  // console.log("profiles data: ...", profiles);
-
-  // const audioBooks = await supabase.from("Audiobooks").select("*");
-
-  // console.log("error: ...", audioBooks.error);
-  // console.log("books data: ...", audioBooks);
-
   const { data, error } = await supabase.from("Products").select(`
     id, 
     name, 
@@ -39,19 +14,17 @@ export default async function BooksDisplay() {
     PrintedBooks ( *, 
       options:PrintOptions ( *, 
         size:PrintSize( * )
-      )
+      ),
+      cover:PrintedCover( * )
     ),
     Awards ( * ) 
   `);
 
-  console.log("error: ...", error);
-  console.log("data: ...", data);
+  //   console.log("error: ...", error);
+  //   console.log("data: ...", data);
 
-  console.log("printed data: ...", data[1]);
-  console.log("printed data options: ...", data[1].PrintedBooks[0].options);
-
-  // const printOptData = await supabase.from("PrintOptions").select();
-  // console.log("printOptData: ...", printOptData);
+  //   console.log("printed data: ...", data[1]);
+  //   console.log("printed data cover: ...", data[1].PrintedBooks[0].cover);
 
   return (
     <div>
@@ -98,6 +71,15 @@ export default async function BooksDisplay() {
               <p> Book trailer : {Book.trailer} </p>
               <p> Book pages : {Book.pages} </p>
               <p> Book age restriction : {Book.ageRestriction} </p>
+
+              {Book.cover?.map((cover) => (
+                <div key={cover.id}>
+                  <p> Cover ID : {cover.id} </p>
+                  <p> Cover source : {cover.source} </p>
+                  <p> Cover shade : {cover.shade} </p>
+                  <p> Cover blurhash : {cover.blurHash} </p>
+                </div>
+              ))}
 
               {Book.options?.map((option) => (
                 <div key={option.id}>
