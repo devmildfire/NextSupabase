@@ -1,9 +1,11 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
+import { useState } from "react";
 
 export default async function SingleTitleDisplay() {
   const cookieStore = cookies();
   const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const { title, setTitle } = useState("");
 
   const { data, error } = await supabase
     .from("Products")
@@ -23,11 +25,21 @@ export default async function SingleTitleDisplay() {
     Awards ( * ) 
   `
     )
-    .eq("name", "Awesome Title");
+    // .eq("name", "Awesome Title");
+    .eq("name", title);
+
+  onSubmit = (event) => {
+    setTitle("Awesome Title");
+  };
 
   return (
     <div>
       <p>Single title test</p>
+
+      <form action="onSubmit">
+        <input type="text" />
+        <input type="submit" />
+      </form>
 
       {data?.map((product) => (
         <ul key={product.id}>
