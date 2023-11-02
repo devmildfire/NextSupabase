@@ -33,7 +33,7 @@ export default async function BooksDisplay() {
 
   return (
     <div>
-      <p>Booktest</p>
+      <p>Single title test</p>
 
       {data?.map((product) => (
         <ul key={product.id}>
