@@ -1,7 +1,7 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
-export default async function BooksDisplay() {
+export default async function SingleTitleDisplay() {
   const cookieStore = cookies();
   const supabase = createServerComponentClient({ cookies: () => cookieStore });
 
@@ -24,12 +24,6 @@ export default async function BooksDisplay() {
   `
     )
     .eq("name", "Awesome Title");
-
-  //   console.log("error: ...", error);
-  //   console.log("data: ...", data);
-
-  //   console.log("printed data: ...", data[1]);
-  //   console.log("printed data cover: ...", data[1].PrintedBooks[0].cover);
 
   return (
     <div>
