@@ -23,7 +23,7 @@ export default async function BooksDisplay() {
     Awards ( * ) 
   `
     )
-    .eq("name", "Audiobook One");
+    .eq("name", "Awesome Title");
 
   //   console.log("error: ...", error);
   //   console.log("data: ...", data);
