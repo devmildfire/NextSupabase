@@ -1,11 +1,16 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import { useState } from "react";
+// "use client";
+// import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createClient } from "@supabase/auth-helpers-nextjs";
+// import { cookies } from "next/headers";
+// import { useState } from "react";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 export default async function SingleTitleDisplay() {
-  const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
-  const { title, setTitle } = useState("");
+  // const cookieStore = cookies();
+  const supabase = createClient(supabaseUrl, supabaseKey);
+  // const { title, setTitle } = useState("");
 
   const { data, error } = await supabase
     .from("Products")
@@ -29,7 +34,7 @@ export default async function SingleTitleDisplay() {
     .eq("name", title);
 
   onSubmit = (event) => {
-    setTitle("Awesome Title");
+    // setTitle("Awesome Title");
   };
 
   return (
